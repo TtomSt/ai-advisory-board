@@ -155,7 +155,7 @@ def _call_gemini(agent: dict, system: str, conversation: list[dict]) -> str:
     url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
            f"{agent['model']}:generateContent?key={api_key}")
     resp = requests.post(url, json={"contents": contents,
-                                    "generationConfig": {"maxOutputTokens": 300}}, timeout=30)
+                                    "generationConfig": {"maxOutputTokens": 500}}, timeout=30)
     if not resp.ok:
         raise Exception(resp.text)
     return resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
