@@ -240,7 +240,7 @@ def agent_emoji(name: str) -> str:
 # ── Render history ─────────────────────────────────────────────────────────────
 for msg in st.session_state.messages:
     if msg["role"] == "user":
-        with st.chat_message("user", avatar="👤"):
+        with st.chat_message("user", avatar="user"):
             st.markdown(
                 "<span style='font-family:JetBrains Mono;font-size:10px;font-weight:700;"
                 "text-transform:uppercase;letter-spacing:1px;color:#f59e0b;'>"
@@ -250,7 +250,7 @@ for msg in st.session_state.messages:
     else:
         name  = msg.get("agent", "")
         color = BRAND_COLORS.get(name, "#888")
-        with st.chat_message(name, avatar=agent_emoji(name)):
+        with st.chat_message(name, avatar="assistant"):
             st.markdown(
                 f"<div class='ai-label' style='color:{color};'>"
                 f"{agent_emoji(name)} {name}"
@@ -283,7 +283,7 @@ def run_discussion(user_msg: str):
 
     # Save + render user message
     st.session_state.messages.append({"role": "user", "content": user_msg})
-    with st.chat_message("user", avatar="👤"):
+    with st.chat_message("user", avatar="user"):
         st.markdown(
             "<span style='font-family:JetBrains Mono;font-size:10px;font-weight:700;"
             "text-transform:uppercase;letter-spacing:1px;color:#f59e0b;'>"
@@ -313,7 +313,7 @@ def run_discussion(user_msg: str):
 
         for agent in active:
             color = agent["color"]
-            with st.chat_message(agent["name"], avatar=agent["emoji"]):
+            with st.chat_message(agent["name"], avatar="assistant"):
                 st.markdown(
                     f"<div class='ai-label' style='color:{color};'>"
                     f"{agent['emoji']} {agent['name']} · {agent['role']}"
