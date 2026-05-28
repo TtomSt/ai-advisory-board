@@ -21,7 +21,7 @@ from openai import OpenAI
 
 # ── Model identifiers ──────────────────────────────────────────────────────────
 CLAUDE_MODEL   = "claude-haiku-4-5"
-GEMINI_MODEL   = "gemini-1.5-flash-latest"
+GEMINI_MODEL   = "gemini-1.5-flash"
 OPENAI_MODEL   = "gpt-4o-mini"
 
 
@@ -152,7 +152,7 @@ def _call_gemini(agent: dict, system: str, conversation: list[dict]) -> str:
     for msg in conversation:
         role = "user" if msg["role"] == "user" else "model"
         contents.append({"role": role, "parts": [{"text": msg["content"]}]})
-    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+    url = (f"https://generativelanguage.googleapis.com/v1/models/"
            f"{agent['model']}:generateContent?key={api_key}")
     resp = requests.post(url, json={"contents": contents,
                                     "generationConfig": {"maxOutputTokens": 300}}, timeout=30)
