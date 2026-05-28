@@ -179,7 +179,7 @@ with c1:
     )
 with c2:
     pills = " · ".join(
-        f"<span style='color:{BRAND_COLORS.get(n,\"#fff\")}'>{n}</span>"
+        "<span style='color:{}'>{}</span>".format(BRAND_COLORS.get(n, "#fff"), n)
         for n in st.session_state.active_agents
     )
     st.markdown(
@@ -215,14 +215,19 @@ if not st.session_state.messages:
         cols = st.columns(len(active_list))
         for i, agent in enumerate(active_list):
             with cols[i]:
+                color = agent["color"]
+                emoji = agent["emoji"]
+                name  = agent["name"]
+                role  = agent["role"]
+                model = agent["model"]
                 st.markdown(
-                    f"<div class='brand-card' style='border-top:3px solid {agent[\"color\"]};'>"
-                    f"<div style='font-size:1.8rem;margin-bottom:6px;'>{agent['emoji']}</div>"
-                    f"<div style='font-weight:600;color:{agent['color']};font-family:JetBrains Mono;"
-                    f"font-size:13px;'>{agent['name']}</div>"
-                    f"<div style='font-size:11px;color:#6e7681;margin:3px 0 6px;'>{agent['role']}</div>"
+                    f"<div class='brand-card' style='border-top:3px solid {color};'>"
+                    f"<div style='font-size:1.8rem;margin-bottom:6px;'>{emoji}</div>"
+                    f"<div style='font-weight:600;color:{color};font-family:JetBrains Mono;"
+                    f"font-size:13px;'>{name}</div>"
+                    f"<div style='font-size:11px;color:#6e7681;margin:3px 0 6px;'>{role}</div>"
                     f"<div style='font-size:10px;color:#3d4b5c;font-family:JetBrains Mono;'>"
-                    f"{agent['model']}</div>"
+                    f"{model}</div>"
                     f"</div>", unsafe_allow_html=True,
                 )
 
