@@ -13,15 +13,15 @@ HIERARCHY enforced in every system prompt:
 """
 
 import os
+import requests
 import streamlit as st
 import anthropic
-import google.generativeai as genai
 from openai import OpenAI
 
 
 # ── Model identifiers ──────────────────────────────────────────────────────────
-CLAUDE_MODEL   = "claude-haiku-3-5-20251001"
-GEMINI_MODEL   = "gemini-1.5-flash"
+CLAUDE_MODEL   = "claude-haiku-4-5"
+GEMINI_MODEL   = "gemini-2.0-flash"
 OPENAI_MODEL   = "gpt-4o-mini"
 
 
@@ -140,26 +140,25 @@ def _call_anthropic(agent: dict, system: str, conversation: list[dict]) -> str:
 
 
 def _call_gemini(agent: dict, system: str, conversation: list[dict]) -> str:
-    """Call Google Gemini API."""
+    """Call Google Gemini API via REST v1beta."""
+    import requests
     api_key = st.session_state.get("gemini_key", "")
     if not api_key:
         raise ValueError("Gemini API key not set.")
-    genai.configure(api_key=api_key)
-    model = genai.GenerativeModel(
-        model_name=agent["model"],
-        system_instruction=system,
-    )
-    # Convert conversation to Gemini format
-    gemini_history = []
-    for msg in conversation[:-1]:   # all but last
+    contents = [
+        {"role": "user",  "parts": [{"text": f"[System]: {system}"}]},
+        {"role": "model", "parts": [{"text": "Understood."}]},
+    ]
+    for msg in conversation:
         role = "user" if msg["role"] == "user" else "model"
-        gemini_history.append({"role": role, "parts": [msg["content"]]})
-    chat = model.start_chat(history=gemini_history)
-    response = chat.send_message(
-        conversation[-1]["content"],
-        generation_config=genai.GenerationConfig(max_output_tokens=300),
-    )
-    return response.text.strip()
+        contents.append({"role": role, "parts": [{"text": msg["content"]}]})
+    url = (f"https://generativelanguage.googleapis.com/v1beta/models/"
+           f"{agent['model']}:generateContent?key={api_key}")
+    resp = requests.post(url, json={"contents": contents,
+                                    "generationConfig": {"maxOutputTokens": 300}}, timeout=30)
+    if not resp.ok:
+        raise Exception(resp.text)
+    return resp.json()["candidates"][0]["content"]["parts"][0]["text"].strip()
 
 
 def _call_openai(agent: dict, system: str, conversation: list[dict]) -> str:
