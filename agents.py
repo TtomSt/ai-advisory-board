@@ -21,7 +21,7 @@ from openai import OpenAI
 
 # ── Model identifiers ──────────────────────────────────────────────────────────
 CLAUDE_MODEL   = "claude-haiku-4-5"
-GEMINI_MODEL   = "gemini-2.0-flash"
+GEMINI_MODEL   = "gemini-1.5-flash-latest"
 OPENAI_MODEL   = "gpt-4o-mini"
 
 
