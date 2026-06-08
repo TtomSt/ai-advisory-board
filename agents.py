@@ -18,6 +18,20 @@ import streamlit as st
 import anthropic
 from openai import OpenAI
 
+# ── THOS Memory Layer ──────────────────────────────────────────────────────────
+def _load_thos_memory() -> str:
+    """Load THOS_MEMORY.md from docs/ or root. Returns empty string if not found."""
+    for path in ["docs/THOS_MEMORY.md", "THOS_MEMORY.md"]:
+        if os.path.exists(path):
+            try:
+                with open(path, "r", encoding="utf-8") as f:
+                    return f.read().strip()
+            except Exception:
+                pass
+    return ""
+
+THOS_MEMORY = _load_thos_memory()
+
 # ── Model identifiers ──────────────────────────────────────────────────────────
 CLAUDE_MODEL = "claude-haiku-4-5"
 GEMINI_MODEL = "gemini-2.5-flash"
@@ -151,6 +165,11 @@ def _build_system_prompt(agent: dict, round_num: int, peer_names: list[str]) -> 
             f"Embody your known personality and communication style."
         )
 
+    memory_block = (
+        f"\n\nBOARD CONTEXT — READ BEFORE RESPONDING:\n{THOS_MEMORY}\n"
+        if THOS_MEMORY else ""
+    )
+
     return f"""{identity}
 
 YOUR DEBATE ROLE: {agent['debate_role']}
@@ -159,7 +178,7 @@ YOUR MANDATE: {agent['mandate']}
 {HIERARCHY_BLOCK}
 
 YOUR PEERS ON THIS BOARD: {peers}
-
+{memory_block}
 {round_instr}
 
 The Lead is watching. Make every word count. Disagreement is the point."""
