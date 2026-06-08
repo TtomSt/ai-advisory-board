@@ -92,9 +92,44 @@ These rules govern every discussion. The board must follow them without being re
 
 ## CURRENT SESSION CONTEXT
 
-*(This section is updated per session by the Lead or by DISC/DEC entries)*
+*(Updated: 2026-06-08)*
 
-- Thinking Hats app: agents.py updated with THOS-001. app.py update pending deployment.
-- Gemini 2.5-flash experiencing 503 errors under high load. Monitoring per DEC-005.
-- Next priority: THOS Memory Layer injection into agents.py so board context is automatic.
-- Quality score consensus: ChatGPT 6.5-7/10 after THOS-001. Target 8.5-9/10 after memory layer.
+- All three files deployed: agents.py (THOS-001 + memory loader), app.py (Thinking Hats branding + DEC/HYP/DISC capture), docs/THOS_MEMORY.md (this file).
+- Board quality score: 8.5–9/10 (ChatGPT) / 9.5/10 (Gemini) after full deployment.
+- DEC-006 approved: controlled validation sprint with 3–4 power users. Do not optimize further before user feedback.
+- Gemini 2.5-flash: 503 errors observed under high load. Monitoring per DEC-005.
+- Next priority: Automatic DEC/HYP/DISC extraction from debate output. Current manual capture bar is functional.
+
+---
+
+## DECISION LEDGER UPDATE — 2026-06-08
+
+| DEC-006 | Launch controlled validation sprint with 3–4 power users immediately. Do not optimize further before first feedback. Explicitly track board-quality defects as findings, not failures. Treat trust issues as data. Capture every DISC, HYP, DEC during testing. Rationale: validation reduces strategic uncertainty faster than internal optimization. | Approved 2026-06-08 |
+
+---
+
+## KNOWLEDGE VAULT UPDATE — 2026-06-08
+
+**KNOW-005:** Memory is a larger quality multiplier than prompt engineering alone. THOS-001 (debate mandates) raised board quality from ~3/10 to ~6.5/10. Adding THOS_MEMORY.md raised it to 8.5–9/10. The combination of role ownership + structured challenge + memory + synthesis produced measurable, observable improvement in one session.
+
+**KNOW-006:** Users can immediately detect the difference between parallel AI responses and genuine deliberation. This was observed in HYP-002 interview language — respondents described debate, challenge, and red-team thinking before seeing the product. The distinction is perceptible without explanation.
+
+**DISC-001:** Board quality affects trust independently from product value. A broken deliberation experience creates a trust gap even when the underlying value is real. This is distinct from the value gap problem (KNOW-004). Emerged from Claude vs Gemini Round 2 debate, 2026-06-08.
+
+---
+
+## SESSION DISCOVERY — 2026-06-08
+
+THOS-001 + THOS_MEMORY deployment increased perceived board quality from approximately 3/10 to 8.5–9/10 in a single session.
+
+Key changes that produced the jump:
+- Hard debate mandates replaced personality prompts (agents.py)
+- Memory layer injected full project context (THOS_MEMORY.md)
+- Sequential debate produced genuine challenge and position revision
+- Roles became distinct: Skeptic (Claude), Context/Trust (Gemini), Strategy (ChatGPT)
+
+Framework-level result: THOS itself produced a measurable improvement in deliberation quality. This is not just an app result — it is evidence that the framework works.
+
+Next priority: Automatic extraction of DEC, HYP, DISC from debate output. Current manual capture bar is functional but requires Lead action. The board should surface extraction candidates automatically.
+
+Current product stage: Ready for controlled validation with 3–4 power users per DEC-006.
