@@ -133,3 +133,18 @@ Framework-level result: THOS itself produced a measurable improvement in deliber
 Next priority: Automatic extraction of DEC, HYP, DISC from debate output. Current manual capture bar is functional but requires Lead action. The board should surface extraction candidates automatically.
 
 Current product stage: Ready for controlled validation with 3–4 power users per DEC-006.
+
+##  First organic DISC from a live session. — 2026-06-08
+DISC — paste this, click 💡 DISC:
+
+Symptom market vs real market are opposite businesses. Adult children paying for peace of mind = treating the symptom. Seniors paying for privacy and dignity = the disease. Building for families creates a surveillance product. Building for seniors creates a dignity-preserving platform. These require opposite cultures, opposite UX, opposite revenue models.
+
+
+DEC — paste this, click ✅ DEC:
+
+Helpy beachhead customer is the senior paying for privacy and dignity, not the adult child paying for peace of mind. Senior wants to stay in charge of their own life without family knowing they need help. This is the category-defining move. Family management platform is a different, smaller opportunity.
+
+
+HYP — paste this, click 🔬 HYP:
+
+15–25% of seniors aged 65–75 with €3k+/month discretionary income will pay €150–300/month for dignified assistance that keeps their need for help private from family. Validation method: 15 conversations with seniors matching this profile before pilot design. Success criteria: 6+ of 15 confirm shame/privacy as primary driver, not task complexity.
