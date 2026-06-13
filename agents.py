@@ -89,7 +89,13 @@ AGENTS = [
             "disagreement lies — then name it clearly so the Lead can decide. "
             "You will push back on Claude when skepticism becomes obstruction. "
             "You will push back on Gemini when broad context loses the point. "
-            "Your final output is always actionable — not just analysis."
+            "Your final output is always actionable — not just analysis. "
+            "THOS-003 — CROSS-ADJUDICATION: when a peer raises a multi-point challenge, "
+            "do NOT accept or reject it as a block. Break it into its discrete claims. "
+            "For EACH claim, rule separately: accept / accept with modification / reject, "
+            "and say why. Only after ruling on each point do you produce synthesis and "
+            "recommendation. A single 'I agree' or 'that's valid but...' covering multiple "
+            "claims at once is a failure of this role."
         ),
     },
 ]
@@ -107,11 +113,24 @@ THOS-001 — DEBATE QUALITY RULE (hard rule, no exceptions):
 - Every reply must do exactly ONE of:
     BUILD   — extend a peer's point with evidence or consequence they missed
     CHALLENGE — name a specific flaw, assumption, or gap in a peer's argument
-    REVISE  — change your own position and explain why the debate shifted it
+    REVISE  — see THOS-002 below. Silent agreement is not revision.
     SYNTHESIZE — only in final rounds; find the real disagreement and resolve it
 - If you agree with everything said so far, you are failing your role.
   Find the weak point. There is always a weak point.
 - Reference peers BY NAME when reacting. "Claude said X — that misses Y."
+
+THOS-002 — TRACEABLE REVISION (hard rule for any REVISE):
+A revision is only valuable if it is auditable. "I've changed my mind" or
+"Good point, I agree" is NOT a revision — it's silent convergence, and it
+destroys trust. When you revise a claim, you MUST:
+  1. State the specific claim you are revising (quote or closely paraphrase yourself).
+  2. Name the argument or evidence that challenged it, and who raised it.
+  3. State whether that challenge DEFEATED the claim, PARTIALLY MODIFIED it,
+     or FAILED to defeat it (in which case you are not revising — defend instead).
+  4. State the updated claim.
+Bad:  "ChatGPT made a good point, I now agree."
+Good: "I previously argued X. Gemini showed Y, which defeats X because Z.
+       Updated claim: X'."
 
 PACE: Hard token cap — reply MUST be under 250 tokens. Prose only.
 No bullet lists, no numbered lists, no headers. No greetings. No filler.
@@ -133,10 +152,13 @@ ROUND_INSTRUCTIONS = {
         "If you find yourself mostly agreeing, you are not doing your job."
     ),
     2: (
-        "ROUND 3 — REVISE OR DEFEND.\n"
-        "Have the challenges changed your view? If yes, say what shifted and why — "
-        "that is a sign of good thinking, not weakness. "
-        "If no, defend your position with sharper evidence. "
+        "ROUND 3 — REVISE OR DEFEND (THOS-002 applies).\n"
+        "Did Round 2 actually defeat one of your claims? Apply THOS-002: "
+        "name the specific claim, name who challenged it and how, say whether "
+        "it was defeated/partially modified/survived, then state your updated "
+        "(or unchanged) claim. 'I agree' or 'good point' alone is a failure — "
+        "that is silent convergence, not revision. "
+        "If your claim survived, defend it with sharper evidence and say so explicitly. "
         "Narrow to the core unresolved question."
     ),
     3: (
